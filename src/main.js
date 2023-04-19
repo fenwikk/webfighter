@@ -122,17 +122,20 @@ callButton.onclick = async () => {
 
 // 3. Answer the call with the unique ID
 answerButton.onclick = async () => {
+    console.log("answering");
     const callId = callInput.value;
     const callDoc = firestore.collection("calls").doc(callId);
     const answerCandidates = callDoc.collection("answerCandidates");
     const offerCandidates = callDoc.collection("offerCandidates");
 
     pc.onicecandidate = (event) => {
+        console.log("added candidate");
         event.candidate && answerCandidates.add(event.candidate.toJSON());
     };
 
     const callData = (await callDoc.get()).data();
 
+    console.log("call: " + callData);
     const offerDescription = callData.offer;
     await pc.setRemoteDescription(new RTCSessionDescription(offerDescription));
 
