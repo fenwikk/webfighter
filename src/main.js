@@ -135,7 +135,8 @@ answerButton.onclick = async () => {
 
     const callData = (await callDoc.get()).data();
 
-    console.log("call: " + callData);
+    console.log("call: ");
+    console.log(callData);
     const offerDescription = callData.offer;
     await pc.setRemoteDescription(new RTCSessionDescription(offerDescription));
 
